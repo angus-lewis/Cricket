@@ -13,7 +13,7 @@ OffPA = 30.48/2
 LegPA = -OffPA
 
 function plotPitch!(p::Plots.Plot{Plots.GRBackend})
-    p = pitchProportions!(p)
+    # p = pitchProportions!(p)
     p = begin
         plot!([OffEdge, OffEdge],[0,PitchLength], label = nothing, color = :black) # left edge
         plot!([LegEdge, LegEdge],[0,PitchLength], label = nothing, color = :black) # right edge

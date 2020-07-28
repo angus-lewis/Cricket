@@ -14,11 +14,13 @@ end
 "Hit_To_Len"
 "Hit_To_Angle"
 
-filtereddata = filter(row -> isequal(row[:Striker_Hand],"Right"), df)
+# filtereddata = filter(row -> isequal(row[:Striker_Hand],"Right"), df)
+filtereddata = filter(row -> isequal(row[:Striker_Hand],"Left"), df)
+# filtereddata = filter(row -> isequal(row[:Pitch_X],round(row[:Pitch_X],digits=0)), filtereddata)
 # filtereddata = filter(row -> row[:Bowler_Hand]=="Left", filtereddata)
 # filtereddata = filter(row -> isequal(row[:Data_Source],"HawkEye"), df)
-pitchxdata = filtereddata.Pitch_X
-pitchydata = filtereddata.Pitch_Y
+pitchxdata = filtereddata.Pitch_X./10
+pitchydata = filtereddata.Pitch_Y./10
 
 p = plotPitch()
 lengths = unique(df.Pitch_Y_Description)

@@ -91,7 +91,7 @@ select!(
 df.Hit_To_Angle = df.Hit_To_Angle .* π ./ 180 # degrees to radians
 # xshift = (17 - 5.5) / 2
 df.Pitch_Y = df.Pitch_Y ./ 10 # mm to cm
-df.Pitch_X = df.Pitch_X ./ 10 .- xshift # mm to cm
+df.Pitch_X = df.Pitch_X ./ 10 # mm to cm
 df.At_Batter_Y = df.At_Batter_Y ./ 10 # mm to cm
 # df.At_Batter_X = df.At_Batter_X .- xshift# mm to cm
 df.At_Stumps_Y = df.At_Stumps_Y ./ 10 # mm to cm
