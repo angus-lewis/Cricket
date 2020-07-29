@@ -1,3 +1,5 @@
+using Plots
+
 # pitch measurements
 OffEdge = 264/2
 LegEdge = -OffEdge
@@ -13,7 +15,7 @@ OffPA = 30.48/2
 LegPA = -OffPA
 
 function plotPitch!(p::Plots.Plot{Plots.GRBackend})
-    # p = pitchProportions!(p)
+    p = pitchProportions!(p)
     p = begin
         plot!([OffEdge, OffEdge],[0,PitchLength], label = nothing, color = :black) # left edge
         plot!([LegEdge, LegEdge],[0,PitchLength], label = nothing, color = :black) # right edge
@@ -64,17 +66,39 @@ function plotStumps!(p::Plots.Plot{Plots.GRBackend})
     p = begin
         plot!([OffWide, OffWide],[0,100], label = nothing, color = :black) # off wide
         plot!([LegWide, LegWide],[0,100], label = nothing, color = :black) # leg wide
+        plot!([OffEdge, OffEdge],[0,100], label = nothing, color = :black) # off edge
+        plot!([LegEdge, LegEdge],[0,100], label = nothing, color = :black) # leg edge
         plot!([OffPA,OffPA],[0,25], label = nothing, color = :black) # protected area
         plot!([LegPA,LegPA],[0,25], label = nothing, color = :black) # protected area
         plot!([LegStump,OffStump],[71.1, 71.1], linewidth=4, label = nothing, color = :black) # stumps
         plot!([LegStump,LegStump],[0, 71.1], linewidth=4, label = nothing, color = :black) # stumps
         plot!([OffStump,OffStump],[0, 71.1], linewidth=4, label = nothing, color = :black) # stumps
         plot!([0,0],[0, 71.1], linewidth=4, label = nothing, color = :black) # stumps
+        plot!(
+            windowsize = (600, 400),
+            ylims = (0,200),
+            xlims = (-150, 150),
+            )
     end
     return p
 end
 function plotStumps()
     p = plot()
     plotStumps!(p)
+    return p
+end
+
+function plotOval!(p)
+    circx = 100*cos.(-π:0.01:π)
+    circy = 100*sin.(-π:0.01:π)
+    p = plot!(legend = :outertopright)
+    p = plot!(circx, circy, label = "Boundary")
+    p = annotate!(-90,80,"Leg")
+    p = annotate!(80,80,"Off")
+    return p
+end
+function plotOval()
+    p = plot()
+    p = plotOval!(p)
     return p
 end
