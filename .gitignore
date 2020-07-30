@@ -1,2 +1,6 @@
 # ignore data
 *.txt
+
+# ignore ipynb checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
