@@ -43,6 +43,7 @@ select!(
         "Fielder1_Id",
         "Non_Striker_Hand_Id",
         "TeamA_Id",
+        "Venue_Id",
         "TeamB_Result",
         "Team_Bowling_Result",
         "Team_Bowling_Id",
