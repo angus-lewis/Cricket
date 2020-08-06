@@ -11,6 +11,11 @@ try
     @warn "changed directory to: /Users/a1627293/Documents/Cricket"
 catch
 end
+try
+    cd("C:\\Users\\Angus\\Documents\\Cricket")
+    @warn "changed directory to: C:\\Users\\Angus\\Documents\\Cricket"
+catch
+end
 df = DataFrame!(CSV.File("data/Deliveries.txt", normalizenames = true))
 ## remove useless columns
 for i = 2:5

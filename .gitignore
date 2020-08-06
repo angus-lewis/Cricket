@@ -4,3 +4,8 @@
 # ignore ipynb checkpoints
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+
+# ignore images 
+*.png
+*.svg
+*.jpeg
