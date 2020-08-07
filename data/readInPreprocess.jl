@@ -112,6 +112,7 @@ df.At_Batter_Y = df.At_Batter_Y ./ 10 # mm to cm
 df.At_Batter_X = df.At_Batter_X ./ 10 # mm to cm
 df.At_Stumps_Y = df.At_Stumps_Y ./ 10 # mm to cm
 df.At_Stumps_X = df.At_Stumps_X ./ 10 # mm to cm
+categorical!(df, :Fair_Ball_In_Over)
 # flip x coordinated for left handers
 df[isequal.(df[:,:Striker_Hand],"Left"),[
     :Pitch_X;
