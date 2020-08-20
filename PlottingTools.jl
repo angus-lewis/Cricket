@@ -14,36 +14,42 @@ LegStump = -OffStump
 OffPA = 30.48/2
 LegPA = -OffPA
 
-function plotPitch!(p::Plots.Plot{Plots.GRBackend})
-    p = pitchProportions!(p)
+function plotPitch!(
+    p::Plots.Plot{Plots.GRBackend};
+    proportions::Bool = true,
+    subplot::Int = 1,
+    )
+    if proportions
+        p = pitchProportions!(p, subplot = subplot)
+    end
     p = begin
-        plot!([OffEdge, OffEdge],[0,PitchLength], label = nothing, color = :black) # left edge
-        plot!([LegEdge, LegEdge],[0,PitchLength], label = nothing, color = :black) # right edge
-        plot!([LegEdge, OffEdge],[PitchLength/2,PitchLength/2], label = nothing, color = :black) # halfway
+        plot!([OffEdge, OffEdge],[0,PitchLength], label = nothing, color = :black, subplot = subplot) # left edge
+        plot!([LegEdge, LegEdge],[0,PitchLength], label = nothing, color = :black, subplot = subplot) # right edge
+        plot!([LegEdge, OffEdge],[PitchLength/2,PitchLength/2], label = nothing, color = :black, subplot = subplot) # halfway
 
         # strikers end
-        plot!([OffWide, OffWide],[0,Crease], label = nothing, color = :black) # off wide
-        plot!([LegWide, LegWide],[0,Crease], label = nothing, color = :black) # leg wide
-        plot!([LegEdge,OffEdge],[Popping, Popping], label = nothing, color = :black) # popping crease
-        plot!([LegEdge,OffEdge],[Crease, Crease], label = nothing, color = :black) # crease
-        plot!([OffPA,OffPA],[0,25], label = nothing, color = :black) # protected area
-        plot!([LegPA,LegPA],[0,25], label = nothing, color = :black) # protected area
-        plot!([LegStump,OffStump],[Popping, Popping], linewidth=10, label = nothing, color = :black) # stumps
+        plot!([OffWide, OffWide],[0,Crease], label = nothing, color = :black, subplot = subplot) # off wide
+        plot!([LegWide, LegWide],[0,Crease], label = nothing, color = :black, subplot = subplot) # leg wide
+        plot!([LegEdge,OffEdge],[Popping, Popping], label = nothing, color = :black, subplot = subplot) # popping crease
+        plot!([LegEdge,OffEdge],[Crease, Crease], label = nothing, color = :black, subplot = subplot) # crease
+        plot!([OffPA,OffPA],[0,25], label = nothing, color = :black, subplot = subplot) # protected area
+        plot!([LegPA,LegPA],[0,25], label = nothing, color = :black, subplot = subplot) # protected area
+        plot!([LegStump,OffStump],[Popping, Popping], linewidth=10, label = nothing, color = :black, subplot = subplot) # stumps
 
         # non-strikers end
-        plot!([OffWide, OffWide],PitchLength.-[0,Crease], label = nothing, color = :black) # off wide
-        plot!([LegWide, LegWide],PitchLength.-[0,Crease], label = nothing, color = :black) # leg wide
-        plot!([LegEdge,OffEdge],PitchLength.-[Popping, Popping], label = nothing, color = :black) # popping crease
-        plot!([LegEdge,OffEdge],PitchLength.-[Crease, Crease], label = nothing, color = :black) # crease
-        plot!([OffPA,OffPA],PitchLength.-[0,25], label = nothing, color = :black) # protected area
-        plot!([LegPA,LegPA],PitchLength.-[0,25], label = nothing, color = :black) # protected area
-        plot!([LegStump,OffStump],PitchLength.-[Popping, Popping], linewidth=10, label = nothing, color = :black) # stumps
+        plot!([OffWide, OffWide],PitchLength.-[0,Crease], label = nothing, color = :black, subplot = subplot) # off wide
+        plot!([LegWide, LegWide],PitchLength.-[0,Crease], label = nothing, color = :black, subplot = subplot) # leg wide
+        plot!([LegEdge,OffEdge],PitchLength.-[Popping, Popping], label = nothing, color = :black, subplot = subplot) # popping crease
+        plot!([LegEdge,OffEdge],PitchLength.-[Crease, Crease], label = nothing, color = :black, subplot = subplot) # crease
+        plot!([OffPA,OffPA],PitchLength.-[0,25], label = nothing, color = :black, subplot = subplot) # protected area
+        plot!([LegPA,LegPA],PitchLength.-[0,25], label = nothing, color = :black, subplot = subplot) # protected area
+        plot!([LegStump,OffStump],PitchLength.-[Popping, Popping], linewidth=10, label = nothing, color = :black, subplot = subplot) # stumps
     end
     return p
 end
-function plotPitch()
+function plotPitch(;proportions::Bool = true, subplot::Int = 1)
     p = plot()
-    plotPitch!(p)
+    plotPitch!(p; proprtions = proportions, subplot = subplot)
     return p
 end
 function pitchProportions!(p)
@@ -62,29 +68,36 @@ function pitchProportions!(p)
     return p
 end
 
-function plotStumps!(p::Plots.Plot{Plots.GRBackend})
+function plotStumps!(
+    p::Plots.Plot{Plots.GRBackend};
+    proportions::Bool = false,
+    subplot::Int = 1
+    )
     p = begin
-        plot!([OffWide, OffWide],[0,100], label = nothing, color = :black) # off wide
-        plot!([LegWide, LegWide],[0,100], label = nothing, color = :black) # leg wide
-        plot!([OffEdge, OffEdge],[0,100], label = nothing, color = :black) # off edge
-        plot!([LegEdge, LegEdge],[0,100], label = nothing, color = :black) # leg edge
-        plot!([OffPA,OffPA],[0,25], label = nothing, color = :black) # protected area
-        plot!([LegPA,LegPA],[0,25], label = nothing, color = :black) # protected area
-        plot!([LegStump,OffStump],[71.1, 71.1], linewidth=4, label = nothing, color = :black) # stumps
-        plot!([LegStump,LegStump],[0, 71.1], linewidth=4, label = nothing, color = :black) # stumps
-        plot!([OffStump,OffStump],[0, 71.1], linewidth=4, label = nothing, color = :black) # stumps
-        plot!([0,0],[0, 71.1], linewidth=4, label = nothing, color = :black) # stumps
-        plot!(
+        plot!([OffWide, OffWide],[0,100], label = nothing, color = :black, subplot = subplot) # off wide
+        plot!([LegWide, LegWide],[0,100], label = nothing, color = :black, subplot = subplot) # leg wide
+        plot!([OffEdge, OffEdge],[0,100], label = nothing, color = :black, subplot = subplot) # off edge
+        plot!([LegEdge, LegEdge],[0,100], label = nothing, color = :black, subplot = subplot) # leg edge
+        plot!([OffPA,OffPA],[0,25], label = nothing, color = :black, subplot = subplot) # protected area
+        plot!([LegPA,LegPA],[0,25], label = nothing, color = :black, subplot = subplot) # protected area
+        plot!([LegStump,OffStump],[71.1, 71.1], linewidth=4, label = nothing, color = :black, subplot = subplot) # stumps
+        plot!([LegStump,LegStump],[0, 71.1], linewidth=4, label = nothing, color = :black, subplot = subplot) # stumps
+        plot!([OffStump,OffStump],[0, 71.1], linewidth=4, label = nothing, color = :black, subplot = subplot) # stumps
+        plot!([0,0],[0, 71.1], linewidth=4, label = nothing, color = :black, subplot = subplot) # stumps
+        if proportions
+            plot!(
             windowsize = (600, 400),
             ylims = (0,200),
             xlims = (-150, 150),
+            subplot = subplot,
             )
+        end
     end
     return p
 end
-function plotStumps()
+function plotStumps(; proportions::Bool = false, subplot::Int = 1)
     p = plot()
-    plotStumps!(p)
+    plotStumps!(p; proportions = proportions, subplot = subplot)
     return p
 end
 
